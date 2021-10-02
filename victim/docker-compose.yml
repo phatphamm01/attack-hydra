@@ -1,0 +1,48 @@
+version: "3"
+services:
+  postgress:
+    image: "postgres"
+    container_name: postgres
+    environment:
+      POSTGRES_USER: phatphamm
+      POSTGRES_PASSWORD: utepostgress
+      POSTGRES_DB: UTE
+    ports:
+      - "5432:5432"
+
+  sql:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    container_name: sql
+    environment:
+      SA_PASSWORD: utesql
+      ACCEPT_EULA: Y
+    ports:
+      - "5434:1433"
+
+  ftp:
+    image: stilliard/pure-ftpd
+    container_name: ftp
+    environment:
+      PUBLICHOST: "localhost"
+      FTP_USER_NAME: phatphamm
+      FTP_USER_PASS: uteftp
+      FTP_USER_HOME: /home/username
+    ports:
+      - "21:21"
+    restart: always
+
+  ssh:
+    image: ghcr.io/linuxserver/openssh-server
+    container_name: ssh
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/London
+      PUBLIC_KEY: 123456789
+      SUDO_ACCESS: true
+      PASSWORD_ACCESS: true
+      USER_PASSWORD: utessh
+      USER_NAME: phatphamm01
+    ports:
+      - 2222:2222
+    restart: always

@@ -1,0 +1,10 @@
+version: "2.1" # optional since v1.27.0
+services:
+  kali:
+    image: kali
+    working_dir: /root
+    volumes:
+      - .\:/root
+    stdin_open: true
+    tty: true
+    network_mode: host
